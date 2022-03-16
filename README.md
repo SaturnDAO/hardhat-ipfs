@@ -37,9 +37,11 @@ simple example using ipfs with hardhat
 ```ts
 import { task } from 'hardhat/config'
 
-task('ipfshash', 'Prints the list of accounts', async (taskArgs, hre) => {
-  const data = `HASHING YOUR DATA`
-  const cid = await hre.ipfs.hashCID(data)
-  console.log(cid.toString())
-})
+task("ipfshash", "Prints the CID of the data")
+  .addParam("data", "data to hash")
+  .setAction(async (taskArgs, hre) => {
+    console.log("Data received : ", taskArgs.data);
+    const cid = await hre.ipfs.hashCID(taskArgs.data);
+    console.log("CID           : ", cid.toString());
+  });
 ```
